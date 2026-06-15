@@ -1,0 +1,7 @@
+# Hermes CLI -> Ollama local (100% offline)
+# O Ollama expoe uma API compativel com OpenAI em /v1.
+model:
+  provider: custom
+  default: qwen3-coder:30b
+  base_url: http://localhost:11434/v1
+  api_key: ollama   # Ollama nao exige auth; placeholder so para satisfazer o cliente
