@@ -20,5 +20,5 @@ echo "Carregando modelo na memoria..."
 ollama run qwen3-coder:30b "ok" >/dev/null 2>&1 || true
 echo "Modelo pronto."
 
-# Executa o comando solicitado (default definido no CMD: hermes).
+# Executa o comando solicitado (default definido no CMD: hermes --tui).
 exec "$@"

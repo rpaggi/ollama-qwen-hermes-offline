@@ -1,0 +1,15 @@
+services:
+  hermes:
+    image: ollama-qwen-hermes:offline
+    stdin_open: true
+    tty: true
+    entrypoint: ["/bin/sh", "/usr/local/bin/entrypoint.sh"]
+    command: ["hermes", "--tui"]
+    volumes:
+      - ./entrypoint.sh:/usr/local/bin/entrypoint.sh:ro
+      - ./hermes-config.yaml:/root/.hermes/config.yaml:ro
+      - ${PROJECTS_PATH}:/workspace
+      - hermes-data:/root/.hermes/data
+
+volumes:
+  hermes-data:
