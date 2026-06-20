@@ -5,6 +5,8 @@ services:
     tty: true
     entrypoint: ["/bin/sh", "/usr/local/bin/entrypoint.sh"]
     command: ["hermes", "--tui"]
+    ports:
+      - "11434:11434"
     volumes:
       - ./entrypoint.sh:/usr/local/bin/entrypoint.sh:ro
       - ./hermes-config.yaml:/root/.hermes/config.yaml:ro
