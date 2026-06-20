@@ -1,0 +1,11 @@
+{
+  // OpenCode — aponta para o Ollama rodando no container (porta 11434 exposta para o host)
+  "providers": {
+    "ollama": {
+      "name": "Ollama Local",
+      "baseURL": "http://localhost:11434/v1",
+      "apiKey": "ollama"
+    }
+  },
+  "model": "ollama/qwen3-coder:30b"
+}
