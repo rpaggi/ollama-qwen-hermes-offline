@@ -43,6 +43,45 @@ docker run -it --rm ollama-qwen-hermes:offline ollama run qwen3-coder:30b
 docker run -it --rm -v hermes-data:/root/.hermes ollama-qwen-hermes:offline
 ```
 
+## Usando com docker-compose (Podman no Windows)
+
+A pasta `hermes-setup/` contém um `docker-compose.yml` pronto para uso no Windows
+com Podman. Ele monta os arquivos de configuração como volume (sem precisar de rebuild)
+e expõe a porta `11434` para o host.
+
+```powershell
+cd hermes-setup
+copy .env.example .env        # edite o PROJECTS_PATH com o caminho dos seus projetos
+podman-compose up
+```
+
+## Configurando o GitHub Copilot CLI para usar o Ollama local
+
+Com o container rodando (porta `11434` exposta), configure o Copilot CLI via
+variáveis de ambiente antes de iniciá-lo:
+
+**Windows (PowerShell):**
+```powershell
+$env:COPILOT_PROVIDER_BASE_URL = "http://localhost:11434/v1"
+$env:COPILOT_MODEL             = "qwen3-coder:30b"
+$env:COPILOT_PROVIDER_API_KEY  = "ollama"
+$env:COPILOT_OFFLINE           = "true"   # opcional: bloqueia telemetria para o GitHub
+```
+
+**Linux / WSL2 / Mac:**
+```bash
+export COPILOT_PROVIDER_BASE_URL=http://localhost:11434/v1
+export COPILOT_MODEL=qwen3-coder:30b
+export COPILOT_PROVIDER_API_KEY=ollama
+export COPILOT_OFFLINE=true   # opcional: bloqueia telemetria para o GitHub
+```
+
+Depois é só usar o Copilot CLI normalmente — ele vai falar com o modelo local.
+
+> **Atenção:** o `qwen3-coder:30b` suporta tool calling e streaming (requisitos do
+> Copilot CLI). O prompt de sistema do Copilot tem ~21k tokens, então o contexto
+> de 32k+ do modelo é suficiente.
+
 ## Requisitos da máquina offline
 - Docker instalado.
 - ~21 GB de disco para a imagem + ~20 GB de RAM livres para rodar o modelo
